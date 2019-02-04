@@ -1,9 +1,9 @@
 <template>
     <section>
         <ul>
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem">
-                <i class="checkBtn fas fa-check"></i>
-                {{todoItem.item}}
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item">
+                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+                <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                     <i class="fas fa-trash"></i>
                 </span>
@@ -23,6 +23,11 @@ export default {
         removeTodo(todoItem, index){
             localStorage.removeItem(todoItem.item);
             this.todoItems.splice(index, 1);
+        },
+        toggleComplete(todoItem, index){
+            todoItem.completed = !todoItem.completed;
+            localStorage.removeItem(todoItem.item);
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
         }
     },
     created() {
