@@ -38,7 +38,6 @@ export default {
                 }
             }
         }
-        console.log(localStorage.key(0));
     },
 }
 </script>
