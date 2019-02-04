@@ -1,8 +1,11 @@
 <template>
     <section>
         <ul>
-            <li v-for="todoItem in todoItems" v-bind:key="todoItem">
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem">
                 {{todoItem}}
+                <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+                    <i class="fas fa-trash"></i>
+                </span>
             </li>
         </ul>
     </section>
@@ -13,6 +16,12 @@ export default {
     data(){
         return{
             todoItems:[]
+        }
+    },
+    methods: {
+        removeTodo(todoItem, index){
+            localStorage.removeItem(todoItem);
+            this.todoItems.splice(index, 1);
         }
     },
     created() {
